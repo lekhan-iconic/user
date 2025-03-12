@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Login from "./components/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import BSucess from "./pages/BSucess";
+import DBTasks from "./pages/DBTasks";
+import Performance from "./pages/Performance";
+import Security from "./pages/Security";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/navbar" element={<Navbar />}></Route>
+          <Route path="/DBTasks" element={<DBTasks />}></Route>
+          <Route path="/performance" element={<Performance />}></Route>
+          <Route path="/security" element={<Security />}></Route>
+          <Route path="/settings" element={<Settings />}></Route>
+          <Route path="/backup/success" element={<BSucess />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
