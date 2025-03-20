@@ -8,25 +8,39 @@ import {
   Typography,
   Paper,
   Alert,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 
 const DatabaseConnect = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [server, setServer] = useState("");
+  const [server, setServer] = useState(""); // Stores selected server name
   const [database, setDatabase] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
+  // ✅ Map server names to their corresponding IP addresses
+  const serverIPs = {
+    SAAS: "123.456.78,8181",
+      JAKARTHA: "987.654.54,1234",
+    localhost:"localhost"
+  };
+
   const handleConnect = async (e) => {
     e.preventDefault();
+
+    // Convert server name to corresponding IP
+    const serverIP = serverIPs[server] || "";
 
     try {
       const response = await axios.post("http://localhost:5000/connect-db", {
         user,
         password,
-        server,
+        server: serverIP, // ✅ Send IP instead of server name
         database,
       });
 
@@ -80,14 +94,26 @@ const DatabaseConnect = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <TextField
-            label="Server"
-            fullWidth
-            margin="normal"
-            value={server}
-            onChange={(e) => setServer(e.target.value)}
-            required
-          />
+
+          {/* ✅ Dropdown for Server Selection */}
+          <FormControl fullWidth margin="normal" variant="outlined">
+            <InputLabel id="server-label">Server</InputLabel>
+            <Select
+              labelId="server-label"
+              value={server}
+              onChange={(e) => setServer(e.target.value)}
+              required
+              displayEmpty
+            >
+              <MenuItem value="">
+                <em>Select Server</em>
+              </MenuItem>
+              <MenuItem value="SAAS">SAAS</MenuItem>
+              <MenuItem value="JAKARTHA">JAKARTHA</MenuItem>
+              <MenuItem value="JAKARTHA">localhost</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             label="Database"
             fullWidth
