@@ -7,13 +7,15 @@ import DBTasks from "./pages/DBTasks";
 import Performance from "./pages/Performance";
 import Security from "./pages/Security";
 import Settings from "./pages/Settings";
+import DatabaseConnect from "./components/DatabaseConnect";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
+          <Route path="/" element={<DatabaseConnect/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
           <Route path="/navbar" element={<Navbar />}></Route>
           <Route path="/DBTasks" element={<DBTasks />}></Route>
           <Route path="/performance" element={<Performance />}></Route>
